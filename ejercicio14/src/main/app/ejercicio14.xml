@@ -16,6 +16,6 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
         <byte-array-to-string-transformer doc:name="Byte Array to String"/>
         <set-attachment attachmentName="Factura.xml" value="#[payload]" contentType="text/xml" doc:name="Attachment"/>
         <set-payload value="cuerpo del correo de la mula" doc:name="Set Payload"/>
-        <smtp:outbound-endpoint host="smtp.gmail.com" port="587" user="afbl89%40gmail.com" password="Andr3$s890712-61221" connector-ref="Gmail" to="afbl89@gmail.com" from="afbl89@gmail.com" subject="Mule prueba" responseTimeout="10000" doc:name="SMTP"/>
+        <smtp:outbound-endpoint host="smtp.gmail.com" port="587" user="afbl89%40gmail.com"  connector-ref="Gmail" to="afbl89@gmail.com" from="afbl89@gmail.com" subject="Mule prueba" responseTimeout="10000" doc:name="SMTP"/>
     </flow>
 </mule>
