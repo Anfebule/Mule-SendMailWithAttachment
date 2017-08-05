@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+    <file:connector name="File" outputPattern="Factura.xml" readFromDirectory="C:\Users\salas\Documents\SOA" autoDelete="true" streaming="true" validateConnections="true" doc:name="File"/>
+    <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
+    <flow name="Copy_of_ejercicio13Flow">
+        <file:inbound-endpoint path="C:\Users\salas\Documents\SOA" connector-ref="File" responseTimeout="10000" doc:name="File">
+            <file:filename-regex-filter pattern=".*\.xml" caseSensitive="true"/>
+        </file:inbound-endpoint>
+        <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+        <set-attachment attachmentName="Factura.xml" value="#[payload]" contentType="text/xml" doc:name="Attachment"/>
+        <set-payload value="cuerpo del correo de la mula" doc:name="Set Payload"/>
+        <smtp:outbound-endpoint host="smtp.gmail.com" port="587" user="afbl89%40gmail.com" password="Andr3$s890712-61221" connector-ref="Gmail" to="afbl89@gmail.com" from="afbl89@gmail.com" subject="Mule prueba" responseTimeout="10000" doc:name="SMTP"/>
+    </flow>
+</mule>
